@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="sign" class="project.Signup" />
 <jsp:setProperty property="*" name="sign" />
+
 <%
 String url = "jdbc:mysql://localhost:3306/project";
 String dbId = "cye";
@@ -12,33 +13,47 @@ Connection conn = null;
 PreparedStatement pstmt = null;
 ResultSet rs = null;
 
-
 try {
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	
 	conn = DriverManager.getConnection(url, dbId, dbPass);
-	String sql = "Select * from signup where userid = ?"; //password는 일부로 보안 문제 때문에 안 함
+	String sql = "Select * from signup where id = ?"; //password는 일부로 보안 문제 때문에 안 함
 	
 	pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1, sign.getUserid());
+	pstmt.setString(1, sign.getId());
 	
 	rs = pstmt.executeQuery();
 	
 	if (!rs.next()){
-		out.print("id 없음");
-		return;
-	} if (!rs.getString("pw").equals(sign.getPw())){
-		out.print("pw 없음");
-		return;
-	}
+		%>
+		<script>
+		    alert('존재하지 않는 아이디입니다.');
+		    location.href='mainpage.jsp';
+		</script>
+		<%
+		    return;
+		}
+	if (!rs.getString("password").equals(sign.getPassword())){
+			%>
+			<script>
+			    alert('비밀번호가 일치하지 않습니다.');
+			    location.href='mainpage.jsp';
+			</script>
+			<%
+			    return;
+			}
 	
-	session.setAttribute("userid", rs.getString("userid"));
+	session.setAttribute("id", rs.getString("id"));
+	session.setAttribute("password", rs.getString("password"));
 	session.setAttribute("nickname", rs.getString("nickname"));
+	session.setAttribute("message", rs.getString("message"));
 	
-	out.print("로그인 성공");
+	response.sendRedirect("info.jsp"); //게임화면으로 돌아가야 함
 	
 	
 } catch (Exception e){
 	e.printStackTrace();
-	out.print("로그인 실패");
+	out.print("로그인 실패" + e);
 	
 } finally {
 	if (conn!=null) conn.close();
