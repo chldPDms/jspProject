@@ -3,20 +3,12 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="sign" class="project.Signup" />
 <jsp:setProperty property="*" name="sign" />
-
+<%@ include file="db.jsp"%>
 <%
-String url = "jdbc:mysql://localhost:3306/project";
-String dbId = "cye";
-String dbPass = "pwpw12211234*";
 
-Connection conn = null;
-PreparedStatement pstmt = null;
-ResultSet rs = null;
-
+String autologin= request.getParameter("autologin");
 try {
-	Class.forName("com.mysql.cj.jdbc.Driver");
 	
-	conn = DriverManager.getConnection(url, dbId, dbPass);
 	String sql = "Select * from signup where id = ?"; //password는 일부로 보안 문제 때문에 안 함
 	
 	pstmt = conn.prepareStatement(sql);
@@ -48,8 +40,13 @@ try {
 	session.setAttribute("nickname", rs.getString("nickname"));
 	session.setAttribute("message", rs.getString("message"));
 	
-	response.sendRedirect("info.jsp"); //게임화면으로 돌아가야 함
-	
+	if("true".equals(autologin)){
+		Cookie login = new Cookie("id", rs.getString("id"));
+		login.setMaxAge(60*60*24*7);
+		login.setPath("/");
+		response.addCookie(login);
+	}
+	//response.sendRedirect("info.jsp"); //게임화면으로 돌아가야 함
 	
 } catch (Exception e){
 	e.printStackTrace();

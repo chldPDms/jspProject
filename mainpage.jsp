@@ -79,10 +79,13 @@
 <body>
     <div class="Box">
         <div class="Box_title">회원 로그인</div>
-        <form class="Box_form" action="login.jsp" method="post">
+        <form class="Box_form" action="info.jsp" method="post">
             <div class="login_input">
                 <input type="text" id="id" name="id" placeholder= "아이디" required>
                 <input type="password" id="password" name="password" placeholder= "비밀번호" required>
+           <label>
+    <input type="checkbox" name="autologin" value="true" checked> 자동 로그인
+			</label>
             </div>
             <div class="login_button">
                 <button type="submit" name="btn" value="login">로그인</button>
@@ -91,8 +94,8 @@
             </div>
         </form>
         <div class="option_link">
-            <a href="find.jsp">아이디 찾기</a> | 
-            <a href="find.jsp">비밀번호 찾기</a> | 
+            <a href="idfind.jsp">아이디 찾기</a> | 
+            <a href="pwfind.jsp">비밀번호 찾기</a> | 
             <a href="register.jsp">회원가입</a>
         </div>
     </div>

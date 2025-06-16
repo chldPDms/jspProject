@@ -1,7 +1,8 @@
 <%@ page import="java.sql.*" %>
-<%@ page import="javax.servlet.http.Part" %>
-<%@ page import="javax.servlet.annotation.MultipartConfig" %>
+<%@ page import="jakarta.servlet.http.Part" %>
+<%@ page import="jakarta.servlet.annotation.MultipartConfig" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="db.jsp" %>
 <%
     request.setCharacterEncoding("UTF-8");
 
@@ -23,19 +24,11 @@
     //session.setAttribute("Lv", Lv);  //레벨
     //session.setAttribute("exp", exp);  //경험치
 
-    // DB 저장 처리
-    Connection conn = null;
-    PreparedStatement pstmt = null;
+    
 
     try {
-    	String url = "jdbc:mysql://localhost:3306/project";
-    	String dbId = "cye";
-    	String dbPass = "pwpw12211234*";
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(url, dbId, dbPass);
-
-        String sql = "INSERT INTO user_profile (id, nickname, password, message, photo) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO signup (id, nickname, password, message, photo) VALUES (?, ?, ?, ?, ?)";
 
         pstmt = conn.prepareStatement(sql);
 

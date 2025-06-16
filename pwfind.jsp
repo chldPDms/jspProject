@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>회원가입</title>
+    <title>비밀번호 찾기</title>
     <style>
-   		body {
+        body {
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -18,6 +18,11 @@
             min-width: 420px;
             min-height: 220px;
             box-sizing: border-box;
+        }.Box_title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 25px;
         }.Box_form {
             display: flex;
             flex-direction: column;
@@ -44,42 +49,20 @@
         }.option_link a {
             color: #000;
             margin: 0 5px;
-        }.complete {
-            text-align: center;
-            font-weight: bold;
-            margin: 20px 0;
         }
     </style>
 </head>
 <body>
     <div class="Box">
-        <%
-        //입력값이 모두 있으면 완료 메시지 출력
-        String nickname = request.getParameter("nickname");
-        String id = request.getParameter("id");
-        String password = request.getParameter("password");
-        if (nickname != null && id != null && password != null &&
-             !nickname.isEmpty() && !id.isEmpty() && !password.isEmpty()) {
-        %>
-            <div class="complete">회원가입이 완료되었습니다!</div>
-            <div class="option_link">
-                <a href="mainpage.jsp">로그인으로 돌아가기</a>
-            </div> 
-        <%
-        } else {
-        %>
-        <form class="Box_form" action="signup.jsp" method="post">
-            <input type="text" name="nickname" placeholder="닉네임" required>
+        <div class="Box_title">비밀번호 찾기</div>
+        <form class="Box_form" action="pw.jsp" method="post">
+        	<input type="text" name="nickname" placeholder="닉네임" required>
             <input type="text" name="id" placeholder="아이디" required>
-            <input type="password" name="password" placeholder="비밀번호" required>
-            <input type="textarea" name="message" placeholder="상태 메세지" >
-            <button type="submit">회원가입</button>
-            <div class="option_link">
-                <a href="mainpage.jsp">로그인으로 돌아가기</a></div>
+            <button type="submit">정보 조회</button>
         </form>
-        <%
-        }
-        %>
+        <div class="option_link">
+            <a href="mainpage.jsp">로그인으로 돌아가기</a>
+        </div>
     </div>
 </body>
 </html>
