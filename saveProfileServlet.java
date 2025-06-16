@@ -3,12 +3,18 @@ package project;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 import java.sql.DriverManager;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+
 import java.sql.Connection;
+
 
 @WebServlet("/saveProfileServlet")
 @MultipartConfig(
@@ -23,31 +29,29 @@ public class saveProfileServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
 
-        String name = request.getParameter("name");
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
         String statusMessage = request.getParameter("message");
         String photo = request.getParameter("photo");
 
-        session.setAttribute("name", name);
         session.setAttribute("nickname", nickname);
         session.setAttribute("password", password);
         session.setAttribute("message", statusMessage);
         session.setAttribute("photo", photo);
 
         try {
-            String url = "jdbc:mysql://localhost:3306";
-            String dbId = "root";
-            String dbPass = "0929";
+            String url = "jdbc:mysql://localhost:3306/project";
+            String dbId = "cye";
+            String dbPass = "pwpw12211234*";
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(url, dbId, dbPass);
-            // ... DB ÀÛ¾÷ ¼öÇà ...
+            // ... DB ì‘ì—… ìˆ˜í–‰ ...
             conn.close();
         } catch (Exception e) {
-            e.printStackTrace(); // ¶Ç´Â ·Î±ë
+            e.printStackTrace(); // ë˜ëŠ” ë¡œê¹…
         }
 
-        // ÆÄÀÏ ¾÷·Îµå Ã³¸®
+        // íŒŒì¼ ì—…ë¡œë“œ ì²˜ë¦¬
         Part filePart = request.getPart("photo");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
