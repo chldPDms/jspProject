@@ -6,6 +6,7 @@
 <%@ include file="db.jsp"%>
 <%
 
+
 String autologin= request.getParameter("autologin");
 try {
 	
@@ -46,7 +47,8 @@ try {
 		login.setPath("/");
 		response.addCookie(login);
 	}
-	//response.sendRedirect("info.jsp"); //게임화면으로 돌아가야 함
+
+	response.sendRedirect("info.jsp"); //게임화면으로 돌아가야 함
 	
 } catch (Exception e){
 	e.printStackTrace();

@@ -79,7 +79,7 @@
 <body>
     <div class="Box">
         <div class="Box_title">회원 로그인</div>
-        <form class="Box_form" action="info.jsp" method="post">
+        <form class="Box_form" action="login.jsp" method="post">
             <div class="login_input">
                 <input type="text" id="id" name="id" placeholder= "아이디" required>
                 <input type="password" id="password" name="password" placeholder= "비밀번호" required>
@@ -103,5 +103,7 @@
         <button class="sidebuttons" onclick="location.href='ranking.jsp'">랭킹</button>
         <button class="sidebuttons" onclick="location.href='settings.jsp'">설정</button>
     </div>
+    
+    
 </body>
 </html>
